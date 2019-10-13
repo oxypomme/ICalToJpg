@@ -26,14 +26,14 @@ namespace icalToHtmlToJpg
         {
             /*== Get Calendar ==*/
             CalendarUrl = new string[8];
-            CalendarUrl[0] = "https://dptinfo.iutmetz.univ-lorraine.fr/lna/agendas/ical.php?ical=e81e5e310001831"; //1.1
-            CalendarUrl[1] = "https://dptinfo.iutmetz.univ-lorraine.fr/lna/agendas/ical.php?ical=4352c5485001785"; //1.2
-            CalendarUrl[2] = "https://dptinfo.iutmetz.univ-lorraine.fr/lna/agendas/ical.php?ical=329314450001800"; //2.1
-            CalendarUrl[3] = ""; //2.2
-            CalendarUrl[4] = ""; //3.1
-            CalendarUrl[5] = "https://dptinfo.iutmetz.univ-lorraine.fr/lna/agendas/ical.php?ical=b4a52df5e501843"; //3.2
-            CalendarUrl[6] = "https://dptinfo.iutmetz.univ-lorraine.fr/lna/agendas/ical.php?ical=561e49e97901779"; //4.1
-            CalendarUrl[7] = "https://dptinfo.iutmetz.univ-lorraine.fr/lna/agendas/ical.php?ical=3a1ee9527101771"; //4.2
+            CalendarUrl[0] = @"https://dptinfo.iutmetz.univ-lorraine.fr/lna/agendas/ical.php?ical=e81e5e310001831"; //1.1
+            CalendarUrl[1] = @"https://dptinfo.iutmetz.univ-lorraine.fr/lna/agendas/ical.php?ical=4352c5485001785"; //1.2
+            CalendarUrl[2] = @"https://dptinfo.iutmetz.univ-lorraine.fr/lna/agendas/ical.php?ical=329314450001800"; //2.1
+            CalendarUrl[3] = @""; //2.2
+            CalendarUrl[4] = @""; //3.1
+            CalendarUrl[5] = @"https://dptinfo.iutmetz.univ-lorraine.fr/lna/agendas/ical.php?ical=b4a52df5e501843"; //3.2
+            CalendarUrl[6] = @"https://dptinfo.iutmetz.univ-lorraine.fr/lna/agendas/ical.php?ical=561e49e97901779"; //4.1
+            CalendarUrl[7] = @"https://dptinfo.iutmetz.univ-lorraine.fr/lna/agendas/ical.php?ical=3a1ee9527101771"; //4.2
 
             var stringICal = new string[CalendarUrl.Length];
             for (int i = 0; i < CalendarUrl.Length; i++)
@@ -195,9 +195,9 @@ namespace icalToHtmlToJpg
             // Merge the pre-generated head and foot with the body previously generated
             string head, foot;
             using (var wc = new WebClient())
-                head = string.Format(wc.DownloadString("google.fr"), dateStart, dateEnd, month);
+                head = string.Format(wc.DownloadString(@"https://raw.githubusercontent.com/oxypomme/ICalToJpg/master/icalToHtmlToJpg/head.html"), dateStart, dateEnd, month);
             using (var wc = new WebClient())
-                foot = wc.DownloadString("google.fr");
+                foot = wc.DownloadString(@"https://raw.githubusercontent.com/oxypomme/ICalToJpg/master/icalToHtmlToJpg/foot.html");
             finalHtml.Append(head + body + foot);
 
             /*== Create JPG/HTML File ==*/
