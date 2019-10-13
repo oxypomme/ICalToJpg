@@ -192,7 +192,7 @@ namespace icalToHtmlToJpg
                 body.AppendLine("</tr>");
             }
 
-            // Merge the pre-generated head and foot with the body previously generated
+            // Download & Merge the pre-generated head and foot with the body previously generated
             string head, foot;
             using (var wc = new WebClient())
                 head = string.Format(wc.DownloadString(@"https://raw.githubusercontent.com/oxypomme/ICalToJpg/master/icalToHtmlToJpg/head.html"), dateStart, dateEnd, month);
