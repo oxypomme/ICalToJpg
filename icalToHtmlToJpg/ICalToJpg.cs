@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Linq;
 using CoreHtmlToImage;
 
-// TODO: Colorier le jour en cours
 // TODO 01 : Changement de mois
 // TODO 02 : Séparer en fonctions
 
@@ -171,9 +170,11 @@ namespace icalToHtmlToJpg
                             char[] evEndMChar = { ev.GetEnd()[3], ev.GetEnd()[4] };
                             int evEndMInt = int.Parse(new string(evEndMChar));
 
+                            bool isActive = ev.GetDay() == DateTime.Now.Day;
+
                             // Calc duration and add it to the HTML
                             int delay = (evEndHInt - evStartHInt) * 4 + (evEndMInt - evStartMInt) / 15;
-                            body.AppendLine(string.Format(@"<td rowspan=""{0}"">{1} <br /> <i>{2}</i></td>", delay, ev.GetName(), ev.GetLoc()));
+                            body.AppendLine(string.Format(@"<td rowspan=""{0}"" class=""{3}"">{1} <br /> <i>{2}</i></td>", delay, ev.GetName(), ev.GetLoc(), isActive));
 
                             // Remove the event
                             events.Remove(ev);
