@@ -1,0 +1,37 @@
+table{
+    border: 2px solid black;
+    border-collapse: collapse;
+    empty-cells: show;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+caption{
+    font-weight: bold;
+    font-style: italic;
+    color: white;
+    background-color: black;
+}
+
+thead{
+    border-bottom-style: double;
+}
+
+td, th{
+    width: 85px;
+    border: 1px solid black;
+    text-align: center;
+}
+
+tbody th{
+    height: 41px;
+}
+
+td:empty{
+    border: none;
+    border-right: 1px solid black;
+    background-color: lightgrey;
+}
+
+.active{
+    background-color: rgb(255, 255, 180);
+}
