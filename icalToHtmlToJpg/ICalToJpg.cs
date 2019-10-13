@@ -121,6 +121,18 @@ namespace icalToHtmlToJpg
             int id_m = 0;
             int[] delays = new int[6];
 
+            body.Append("<thead>\n<tr>\n<th></th>\n");
+            // Create table head
+            int dateHead = 0;
+            foreach(int n in numbers)
+            {
+                bool isActive = n == DateTime.Now.Day;
+                var dayHead = new DateTime(DateTime.Now.Year, month, n);
+                body.AppendLine(string.Format(@"<th class=""{3}"">{0} {1}/{2}</th>", dayHead.DayOfWeek, dates[dateHead], month, isActive ? "active" : ""));
+                dateHead++;
+            }
+            body.Append("</tr>\n</thead>\n<tbody>\n");
+
             // For each line (there's 40 lines)
             for (int i = 0; i < 40; i++)
             {
