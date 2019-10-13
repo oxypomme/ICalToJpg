@@ -5,6 +5,7 @@ using System.Net;
 using System.Collections.Generic;
 using System.Linq;
 using CoreHtmlToImage;
+using System.Globalization;
 
 // TODO 01 : Changement de mois
 // TODO 02 : Séparer en fonctions
@@ -21,6 +22,7 @@ namespace icalToHtmlToJpg
 
         #region Private Methods
 
+        [Obsolete]
         static void Main(string[] args)
         {
             /*== Get Calendar ==*/
@@ -121,15 +123,14 @@ namespace icalToHtmlToJpg
             int id_m = 0;
             int[] delays = new int[6];
 
-            body.Append("<thead>\n<tr>\n<th></th>\n");
             // Create table head
-            int dateHead = 0;
-            foreach(int n in numbers)
+            body.Append("<thead>\n<tr>\n<th></th>\n");
+            CultureInfo culture = new CultureInfo("fr-FR");
+            foreach (int n in numbers)
             {
                 bool isActive = n == DateTime.Now.Day;
-                var dayHead = new DateTime(DateTime.Now.Year, month, n);
-                body.AppendLine(string.Format(@"<th class=""{3}"">{0} {1}/{2}</th>", dayHead.DayOfWeek, dates[dateHead], month, isActive ? "active" : ""));
-                dateHead++;
+                var dayHead = new DateTime(DateTime.Now.Year, month, n).ToString("dddd dd/MM", culture);
+                body.AppendLine(string.Format(@"<th class=""{1}"">{0}</th>", dayHead.ToUpper(), isActive ? "active" : ""));
             }
             body.Append("</tr>\n</thead>\n<tbody>\n");
 
@@ -186,7 +187,7 @@ namespace icalToHtmlToJpg
 
                             // Calc duration and add it to the HTML
                             int delay = (evEndHInt - evStartHInt) * 4 + (evEndMInt - evStartMInt) / 15;
-                            body.AppendLine(string.Format(@"<td rowspan=""{0}"" class=""{3}"">{1} <br /> <i>{2}</i></td>", delay, ev.GetName(), ev.GetLoc(), isActive?"active":""));
+                            body.AppendLine(string.Format(@"<td rowspan=""{0}"" class=""{3}"">{1} <br /> <i>{2}</i></td>", delay, ev.GetName(), ev.GetLoc(), isActive ? "active" : ""));
 
                             // Remove the event
                             events.Remove(ev);
@@ -208,7 +209,7 @@ namespace icalToHtmlToJpg
             // Download & Merge the pre-generated head and foot with the body previously generated
             string head, foot;
             using (var wc = new WebClient())
-                head = string.Format(wc.DownloadString(@"https://raw.githubusercontent.com/oxypomme/ICalToJpg/master/icalToHtmlToJpg/head.html"), dateStart, dateEnd-1, month);
+                head = string.Format(wc.DownloadString(@"https://raw.githubusercontent.com/oxypomme/ICalToJpg/master/icalToHtmlToJpg/head.html"), dateStart, dateEnd - 1, month);
             using (var wc = new WebClient())
                 foot = wc.DownloadString(@"https://raw.githubusercontent.com/oxypomme/ICalToJpg/master/icalToHtmlToJpg/foot.html");
             finalHtml.Append(head + body + foot);
