@@ -32,6 +32,6 @@ td:empty{
     background-color: lightgrey;
 }
 
-.true{
+.active{
     background-color: rgb(255, 255, 180);
 }

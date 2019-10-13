@@ -174,7 +174,7 @@ namespace icalToHtmlToJpg
 
                             // Calc duration and add it to the HTML
                             int delay = (evEndHInt - evStartHInt) * 4 + (evEndMInt - evStartMInt) / 15;
-                            body.AppendLine(string.Format(@"<td rowspan=""{0}"" class=""{3}"">{1} <br /> <i>{2}</i></td>", delay, ev.GetName(), ev.GetLoc(), isActive));
+                            body.AppendLine(string.Format(@"<td rowspan=""{0}"" class=""{3}"">{1} <br /> <i>{2}</i></td>", delay, ev.GetName(), ev.GetLoc(), isActive?"active":""));
 
                             // Remove the event
                             events.Remove(ev);
@@ -196,7 +196,7 @@ namespace icalToHtmlToJpg
             // Download & Merge the pre-generated head and foot with the body previously generated
             string head, foot;
             using (var wc = new WebClient())
-                head = string.Format(wc.DownloadString(@"https://raw.githubusercontent.com/oxypomme/ICalToJpg/master/icalToHtmlToJpg/head.html"), dateStart, dateEnd, month);
+                head = string.Format(wc.DownloadString(@"https://raw.githubusercontent.com/oxypomme/ICalToJpg/master/icalToHtmlToJpg/head.html"), dateStart, dateEnd-1, month);
             using (var wc = new WebClient())
                 foot = wc.DownloadString(@"https://raw.githubusercontent.com/oxypomme/ICalToJpg/master/icalToHtmlToJpg/foot.html");
             finalHtml.Append(head + body + foot);
